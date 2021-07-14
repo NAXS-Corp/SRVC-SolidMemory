@@ -64,3 +64,5 @@
 #Fonts
 *SDF.asset
 *font.asset
+lfs-*.asset
+lfs_*.asset
