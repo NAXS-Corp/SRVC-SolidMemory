@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d71235bd696b94442b17ef6e54b3391e
+timeCreated: 1520115639
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - muteGroup: {fileID: 24300001, guid: 1d9bfcb87d0ba844e9071a1e60825ede, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

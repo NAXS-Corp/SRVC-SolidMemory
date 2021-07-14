@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/__Projects/Proj-VAHub/PT-GeneralStatue-01.unity
+    guid: 19cc39da002073d4688bda70c63e90eb
+  - enabled: 0
+    path: Assets/__Projects/Proj-VAHub/PT-Whole-01.unity
+    guid: 22028dfa730d8334eb5f0bc97c48563f
+  - enabled: 0
+    path: Assets/__Projects/Proj-VAHub/PT-VAHub-02.unity
+    guid: a51227f41193ed74a92d717267e64bcc
+  - enabled: 1
+    path: Assets/__Projects/Proj-NTMOFA/__Scene/NTMOFA-01.unity
+    guid: 3e1a821f761ba0d49b11e4f2e917e069
+  m_configObjects: {}

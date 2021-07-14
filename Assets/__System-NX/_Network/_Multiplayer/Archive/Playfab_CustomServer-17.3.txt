@@ -1,0 +1,271 @@
+
+namespace PlayFab.Networking
+{
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using Mirror;
+    using UnityEngine.Events;
+    using Sirenix.OdinInspector;
+    using System.Linq;
+    using kcp2k;
+    using UnityEngine.SceneManagement;
+    using UnityEngine.Serialization;
+
+
+    public class Playfab_CustomServer : NetworkBehaviour
+    {
+        // Rewrite from NetworkManager.cs
+        // public Configuration configuration;
+
+        public PlayerEvent OnPlayerAdded = new PlayerEvent();
+        public PlayerEvent OnPlayerRemoved = new PlayerEvent();
+        public Transport m_Transport;
+        public int MaxConnections = 100;
+        public int Port = 7777;
+
+        public bool autoCreatePlayer = true;
+        // public NetworkManager _networkManager;
+
+        [Header("Editor Setting")]
+        public bool AutoStartListener = true;
+        public bool AutoStartServer = true;
+        public bool UsePlayfab = true;
+        public GameObject playerPrefab;
+        public List<PlayfabConnection> Connections
+        {
+            get { return _connections; }
+            private set { _connections = value; }
+        }
+        private List<PlayfabConnection> _connections = new List<PlayfabConnection>();
+
+        public class PlayerEvent : UnityEvent<string> { }
+
+        
+        [Header("Authentication")]
+        [Tooltip("Authentication component attached to this object")]
+        public NetworkAuthenticator authenticator;
+
+        void Awake()
+        {
+        
+            #if !UNITY_EDITOR
+            AutoStartListener = true;
+            UsePlayfab = false;
+            AutoStartServer = false;
+            #endif
+
+            
+            // if (configuration.buildType == BuildType.REMOTE_SERVER)
+            // {
+                // AddRemoteServerListeners();
+            // }
+            if(AutoStartListener){
+                Initialize();
+            }
+            if(AutoStartServer){
+                StartServer();
+            }
+        }
+
+        public void Initialize()
+        {
+            AddRemoteServerListeners();
+        }
+
+        private void AddRemoteServerListeners()
+        {
+            Debug.Log("[UnityNetworkServer].AddRemoteServerListeners");
+            // NetworkServer.RegisterHandler(Ne)
+            NetworkServer.OnConnectedEvent = OnServerConnectInternal;
+            NetworkServer.OnDisconnectedEvent = OnServerDisconnectInternal;
+            
+            Transport.activeTransport.OnServerConnected = OnServerConnectInternal;
+            Transport.activeTransport.OnServerDataReceived = OnDataReceived;
+            Transport.activeTransport.OnServerDisconnected = OnDisconnected;
+            NetworkServer.RegisterHandler<AddPlayerMessage>(OnServerAddPlayerInternal);
+
+            // Network Server initially registers its own handler for this, so we replace it here.
+            // NetworkServer.RegisterHandler<ConnectMessage>(OnServerConnectInternal, false);
+            // NetworkServer.RegisterHandler<ErrorMessage>(OnServerErrorInternal, false);
+            // NetworkServer.RegisterHandler<DisconnectMessage>(OnServerDisconnectInternal, false);
+            // NetworkServer.RegisterHandler<AddPlayerMessage>(OnServerAddPlayerInternal);
+
+            
+            // NetworkServer.RegisterHandler<ReceiveAuthenticateMessage>(OnReceiveAuthenticate, false);
+			// NetworkServer.RegisterHandler(CustomGameServerMessageTypes.ReceiveAuthenticate, OnReceiveAuthenticate);
+            // NetworkServer.RegisterHandler<AddPlayerMessage>(OnServerAddPlayerInternal);
+            // NetworkServer.RegisterHandler<ErrorMessage>(OnServerError, false);
+            // // Network Server initially registers it's own handlers for these, so we replace them here.
+            // NetworkServer.ReplaceHandler<ReadyMessage>(OnServerReadyMessageInternal);
+        }
+
+        [Button]
+        public void StartServer()
+        {
+            Transport.activeTransport = m_Transport;
+            NetworkServer.Listen(MaxConnections);
+        }
+
+        private void OnApplicationQuit()
+        {
+            NetworkServer.Shutdown();
+        }
+
+        void OnServerAuthenticated(NetworkConnection conn)
+        {
+            // set connection to authenticated
+            conn.isAuthenticated = true;
+
+            // proceed with the login handshake by calling OnServerConnect
+            // if (networkSceneName != "" && networkSceneName != offlineScene)
+            // {
+            //     SceneMessage msg = new SceneMessage() { sceneName = networkSceneName };
+            //     conn.Send(msg);
+            // }
+            // OnServerConnect(conn);
+
+            if(!UsePlayfab) return;
+            var playfabconn = _connections.Find(c => c.ConnectionId == conn.connectionId);
+            if (playfabconn != null)
+            {
+                playfabconn.IsAuthenticated = true;
+                OnPlayerAdded.Invoke(playfabconn.PlayFabId);
+            }
+        }
+
+
+
+
+        void OnServerConnectInternal(NetworkConnection conn)
+        {
+            if (authenticator != null)
+            {
+                // we have an authenticator - let it handle authentication
+                authenticator.OnServerAuthenticate(conn);
+            }
+            else
+            {
+                // authenticate immediately
+                OnServerAuthenticated(conn);
+            }
+
+            if(!UsePlayfab) return;
+
+            var playfabconn = _connections.Find(c => c.ConnectionId == conn.connectionId);
+            if (playfabconn == null)
+            {
+                _connections.Add(new PlayfabConnection()
+                {
+                    Connection = conn,
+                    ConnectionId = conn.connectionId,
+                    LobbyId = PlayFabMultiplayerAgentAPI.SessionConfig.SessionId
+                });
+            }
+        }
+
+        
+        void OnServerAddPlayerInternal(NetworkConnection conn, AddPlayerMessage msg)
+        {
+            // Debug.Log("NetworkManager.OnServerAddPlayer");
+
+            if (autoCreatePlayer && playerPrefab == null)
+            {
+                Debug.LogError("The PlayerPrefab is empty on the NetworkManager. Please setup a PlayerPrefab object.");
+                return;
+            }
+
+            if (autoCreatePlayer && playerPrefab.GetComponent<NetworkIdentity>() == null)
+            {
+                Debug.LogError("The PlayerPrefab does not have a NetworkIdentity. Please add a NetworkIdentity to the player prefab.");
+                return;
+            }
+
+            if (conn.identity != null)
+            {
+                Debug.LogError("There is already a player for this connection.");
+                return;
+            }
+
+            OnServerAddPlayer(conn);
+        }
+
+        public virtual void OnServerAddPlayer(NetworkConnection conn)
+        {
+            Transform startPos = null; //GetStartPosition();
+            GameObject player = startPos != null
+                ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
+                : Instantiate(playerPrefab);
+
+            NetworkServer.AddPlayerForConnection(conn, player);
+        }
+
+        void OnServerErrorInternal(NetworkConnection conn, NetworkMessage msg)
+        {
+            // Debug.Log("NetworkManager.OnServerErrorInternal");
+        }
+
+        void OnServerDisconnectInternal(NetworkConnection conn, NetworkMessage msg)
+        {
+            // Debug.Log("NetworkManager.OnServerDisconnectInternal");
+            
+            if(!UsePlayfab) return;
+
+            var playfabconn = _connections.Find(c => c.ConnectionId == conn.connectionId);
+            if (playfabconn != null)
+            {
+                if (!string.IsNullOrEmpty(playfabconn.PlayFabId))
+                {
+                    OnPlayerRemoved.Invoke(playfabconn.PlayFabId);
+                }
+                _connections.Remove(playfabconn);
+            }
+
+            NetworkServer.DestroyPlayerForConnection(conn);
+            // OnServerDisconnect(conn);
+        }
+    }
+
+    [Serializable]
+    public class PlayfabConnection
+    {
+        public bool IsAuthenticated;
+        public string PlayFabId;
+        public string LobbyId;
+        public int ConnectionId;
+        public NetworkConnection Connection;
+    }
+
+    public class CustomGameServerMessageTypes
+    {
+        public const short ReceiveAuthenticate = 900;
+        public const short ShutdownMessage = 901;
+        public const short MaintenanceMessage = 902;
+    }
+
+    public class ReceiveAuthenticateMessage : NetworkMessage
+    {
+        public string PlayFabId;
+    }
+
+    public class ShutdownMessage : NetworkMessage { }
+
+    [Serializable]
+    public class MaintenanceMessage : NetworkMessage
+    {
+        public DateTime ScheduledMaintenanceUTC;
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            var json = PlayFab.PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
+            ScheduledMaintenanceUTC = json.DeserializeObject<DateTime>(reader.ReadString());
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            var json = PlayFab.PluginManager.GetPlugin<ISerializerPlugin>(PluginContract.PlayFab_Serializer);
+            var str = json.SerializeObject(ScheduledMaintenanceUTC);
+            writer.WriteString(str);
+        }
+    }
+}

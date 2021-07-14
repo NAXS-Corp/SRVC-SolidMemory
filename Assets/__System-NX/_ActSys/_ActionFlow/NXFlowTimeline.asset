@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1893448595, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
+  m_Name: NXFlowTimeline
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[{"key":"Input","label":null,"summary":null,"hideLabel":false}],"controlOutputDefinitions":[{"key":"Output","label":null,"summary":null,"hideLabel":false}],"valueInputDefinitions":[{"hasDefaultValue":true,"defaultValue":null,"_type":"UnityEngine.GameObject","key":"GameObj","label":null,"summary":null,"hideLabel":false},{"hasDefaultValue":false,"defaultValue":null,"_type":"UnityEngine.Timeline.TimelineAsset","key":"Animation","label":null,"summary":null,"hideLabel":false}],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":20.0,"y":-52.0},"zoom":1.0,"elements":[{"defaultValues":{},"position":{"x":-801.0,"y":-69.0},"guid":"7615a5c5-6edd-4c42-bcbd-be43e96d593e","$version":"A","$type":"Bolt.GraphInput","$id":"13"},{"defaultValues":{},"position":{"x":389.0,"y":-70.0},"guid":"c83dcaa1-52a3-4185-ac3b-3b4cecc2dd0e","$version":"A","$type":"Bolt.GraphOutput","$id":"15"},{"chainable":false,"member":{"name":"GetComponent","parameterTypes":["System.Type"],"targetType":"UnityEngine.Component","targetTypeName":"UnityEngine.Component","$version":"A"},"defaultValues":{"target":null,"%type":{"$content":"UnityEngine.Playables.PlayableDirector","$type":"System.RuntimeType"}},"position":{"x":-585.0,"y":-147.0},"guid":"cbe61ed5-8da5-445b-8cd8-df0b0580441e","$version":"A","$type":"Bolt.InvokeMember","$id":"17"},{"chainable":false,"member":{"name":"Play","parameterTypes":["UnityEngine.Playables.PlayableAsset"],"targetType":"UnityEngine.Playables.PlayableDirector","targetTypeName":"UnityEngine.Playables.PlayableDirector","$version":"A"},"defaultValues":{"target":null,"%asset":null},"position":{"x":-190.0,"y":-69.0},"guid":"1e19a41a-4fd5-4696-94da-5b40eb09c6b8","$version":"A","$type":"Bolt.InvokeMember","$id":"20"},{"sourceUnit":{"$ref":"17"},"sourceKey":"exit","destinationUnit":{"$ref":"20"},"destinationKey":"enter","guid":"2c81125b-e6b3-4a92-a385-ed19fe34ca91","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"13"},"sourceKey":"Input","destinationUnit":{"$ref":"17"},"destinationKey":"enter","guid":"0c820311-fb29-43f6-90dc-ef79b961dd81","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"20"},"sourceKey":"exit","destinationUnit":{"$ref":"15"},"destinationKey":"Output","guid":"0a6eae3b-07f0-4da0-8dcd-339dfae7b052","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"17"},"sourceKey":"result","destinationUnit":{"$ref":"20"},"destinationKey":"target","guid":"c2aa528f-3850-467e-befe-2e4683b82d87","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"13"},"sourceKey":"GameObj","destinationUnit":{"$ref":"17"},"destinationKey":"target","guid":"5bf4731d-894c-4e1f-968d-1e95cc59dd1b","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"13"},"sourceKey":"Animation","destinationUnit":{"$ref":"20"},"destinationKey":"%asset","guid":"22bf7fa4-50c2-4b13-90e8-c9068e278d70","$type":"Bolt.ValueConnection"}],"$version":"A"}}'
+    _objectReferences: []

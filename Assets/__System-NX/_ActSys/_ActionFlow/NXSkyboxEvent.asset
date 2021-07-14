@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1893448595, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
+  m_Name: NXSkyboxEvent
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[{"key":"Input","label":null,"summary":null,"hideLabel":false}],"controlOutputDefinitions":[{"key":"Output","label":null,"summary":null,"hideLabel":false}],"valueInputDefinitions":[{"hasDefaultValue":true,"defaultValue":null,"_type":"UnityEngine.Material","key":"Skybox","label":null,"summary":null,"hideLabel":false}],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":-308.0,"y":-26.0},"zoom":1.0,"elements":[{"defaultValues":{},"position":{"x":-630.0,"y":-19.0},"guid":"193a1c35-1f05-4607-a315-e266b5c6e953","$version":"A","$type":"Bolt.GraphInput","$id":"12"},{"defaultValues":{},"position":{"x":-78.0,"y":-18.0},"guid":"a13a591b-41cf-4064-ab05-4bfa1a3dbcc9","$version":"A","$type":"Bolt.GraphOutput","$id":"14"},{"chainable":false,"member":{"name":"skybox","parameterTypes":null,"targetType":"UnityEngine.RenderSettings","targetTypeName":"UnityEngine.RenderSettings","$version":"A"},"defaultValues":{"input":null},"position":{"x":-415.0,"y":-19.0},"guid":"438365f7-c6ef-4f57-b913-15f9f12e71ea","$version":"A","$type":"Bolt.SetMember","$id":"16"},{"sourceUnit":{"$ref":"16"},"sourceKey":"assigned","destinationUnit":{"$ref":"14"},"destinationKey":"Output","guid":"d829ed6b-17f9-4298-adb5-c800dd6824b2","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"12"},"sourceKey":"Input","destinationUnit":{"$ref":"16"},"destinationKey":"assign","guid":"a371fbb0-decd-4a4b-b723-247187bf967b","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"12"},"sourceKey":"Skybox","destinationUnit":{"$ref":"16"},"destinationKey":"input","guid":"7bc94823-4d0d-4844-8ef3-8a221a5b8d25","$type":"Bolt.ValueConnection"}],"$version":"A"}}'
+    _objectReferences: []

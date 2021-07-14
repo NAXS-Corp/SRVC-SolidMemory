@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3045911878866416499
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1762860011731727445, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762860011731727445, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_SlowAgainstWalls
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779529569153238321, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 559ee2b1f09d00248a5b1bfd389af2e6, type: 2}
+    - target: {fileID: 1865726245138422006, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865726245138422011, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_Name
+      value: NetPlayer-b01-LocalDev Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868579361700888753, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254458050359136561, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: viewIdField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603908443763706042, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603908443763706042, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: IsLocalPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603908443763706042, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: LocalDevMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8770226847880000417, guid: 78f2b4fc3ff84d649a4875d0f1985752,
+        type: 3}
+      propertyPath: IsLocalPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 78f2b4fc3ff84d649a4875d0f1985752, type: 3}

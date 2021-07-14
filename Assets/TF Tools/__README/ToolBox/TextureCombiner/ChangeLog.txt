@@ -1,0 +1,11 @@
+V 1.0 :
+	- Release
+V 1.1 :
+	- Asset reorganisation
+	- Fix UnityEditor build error
+V 1.1.1 :
+	- improved compatibility
+V 1.2 :
+	- TF Tools dll organisation (Clean all extensions to reduce files count).
+V 1.2.1 :
+	- Fixed compatibility with Unity 2018.3 and post process Stack.S

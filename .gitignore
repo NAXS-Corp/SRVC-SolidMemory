@@ -52,5 +52,7 @@ sysinfo.txt
 
 # Custom
 __System-NX/Dependencies/_Media/AVProVideo/Resources_
-__System-NX/SharedAssets/Font/NotoSansTC-Regular SDF.asset
-__System-NX/SharedAssets/Font/NotoSansTC-Regular SDF.asset.meta
+NotoSansTC-Regular SDF.asset
+NotoSansTC-Regular SDF.asset.meta
+lfs-NotoSansTC-Regular SDF.asset
+lfs-NotoSansTC-Regular SDF.asset.meta

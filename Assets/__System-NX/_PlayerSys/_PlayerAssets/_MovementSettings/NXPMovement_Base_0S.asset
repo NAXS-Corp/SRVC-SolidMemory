@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf0633185014fa4a8f94ee66e83e6e2, type: 3}
+  m_Name: NXPMovement_Base_0S
+  m_EditorClassIdentifier: 
+  MovementSettings:
+    Acceleration: 25
+    Decceleration: 25
+    RunSpeed: 1.5
+    MaxHorizontalSpeed: 1.6
+    JumpSpeed: 10
+    RunJumpSpeed: 20
+    JumpAbortSpeed: 10
+  FlySettings:
+    FlyUpSpeedOnSpace: 5
+    FlyMultiOnShift: 2
+    FlyUpSpeedByCamera: 3
+    FlyDownSpeedByCamera: 3
+    AirGravity: 0.8
+    GroundedGravity: 3
+    FloatDownHeight: 5
+    MaxFallSpeed: 12
+    MaxUpSpeed: 12
+    HorizontalFlyRunMulti: 3
+  HoverSettings:
+    HoverUpCount: 0
+    HoverUpLimit: 3
+    HoverUpSpeed: 5
+    HoverAbortSpeed: 10
+    AirGravity: 3
+    GroundedGravity: 5
+    MaxFallSpeed: 5
+  GravitySettings:
+    Gravity: 20
+    GroundedGravity: 5
+    MaxFallSpeed: 40
+  RotationSettings:
+    MinRotationSpeed: 600
+    MaxRotationSpeed: 1200
