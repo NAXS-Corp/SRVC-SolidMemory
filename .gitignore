@@ -3,6 +3,7 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+Logs/
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
@@ -56,3 +57,4 @@ NotoSansTC-Regular SDF.asset
 NotoSansTC-Regular SDF.asset.meta
 lfs-NotoSansTC-Regular SDF.asset
 lfs-NotoSansTC-Regular SDF.asset.meta
+*.log
