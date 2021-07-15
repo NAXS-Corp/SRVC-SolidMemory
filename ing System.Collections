@@ -1,0 +1,17 @@
+[33m820addf[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: revert: Revert "System update"
+[33m657b407[m HEAD@{1}: commit: System update
+[33m98ce886[m HEAD@{2}: pull --progress origin: Fast-forward
+[33mfa77c02[m HEAD@{3}: commit: Initial project file commit
+[33m840cfdc[m HEAD@{4}: commit: Try use LFS on fonts
+[33m85be625[m HEAD@{5}: commit: Add png, jpg, fonts back to LFS
+[33m72203e3[m HEAD@{6}: commit: LFS test with Tiff
+[33m68e7b45[m HEAD@{7}: commit: Add .tif to LFS
+[33m89c4865[m HEAD@{8}: commit: remove jpg, png from LFS
+[33md17b5d5[m HEAD@{9}: reset: moving to d17b5d5bbe3524e0e5e929d5f4317d66504ac35a
+[33md11a376[m HEAD@{10}: reset: moving to d11a376c7f39297253488069d12c318cf9dc2ef3
+[33mbb1a6eb[m HEAD@{11}: commit: remove jpg, png from LFS
+[33md11a376[m HEAD@{12}: commit: Initial project commit
+[33md17b5d5[m HEAD@{13}: commit (initial): Repo settings & lfs
+[33m9b96e57[m HEAD@{15}: reset: moving to 9b96e573d41846b3f13208f4cddbc5937a751a8a
+[33m7c8c2e5[m HEAD@{16}: commit: Initial commit
+[33m9b96e57[m HEAD@{17}: commit (initial): Initial commit

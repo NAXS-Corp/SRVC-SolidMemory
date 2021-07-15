@@ -16,6 +16,7 @@ public class SolidM_UICtrl : MonoBehaviour
     public float RetriggerTime = 3f;
     bool FSOpened;
     bool triggered;
+    public MeshRenderer HighlightRenderer;
     // bool allowTrigger;
 
 
@@ -24,6 +25,7 @@ public class SolidM_UICtrl : MonoBehaviour
     {
         canvas.alpha = 0;
         canvas.gameObject.SetActive(false);
+        HighlightRenderer.material.color = new Color(1, 1, 1, 0);
         FSSocket.OnOpen += OnFSOpen;
 
         // allowTrigger = true;
@@ -34,14 +36,9 @@ public class SolidM_UICtrl : MonoBehaviour
     {
         if (triggered)
         {
-            // OnTriggerFocused();
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                FadeOut();
-            }
+            if (Input.GetKeyDown(KeyCode.Escape)) FadeOut();
         }
     }
-
 
     // Trigger
 
@@ -49,26 +46,32 @@ public class SolidM_UICtrl : MonoBehaviour
     {
         if (!triggered)
         {
-            FadeIn();
+            Debug.Log("OnFocused");
+            HighlightRenderer.gameObject.SetActive(true);
+            HighlightRenderer.material.DOFade(1f, fadeTime);
+
+            // Click or Enter
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))
+            {
+                FadeIn();
+            }
         }
-        triggered = true;
     }
 
-    // void OnTriggerFocused()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Return))
-    //     {
-    //         OpenURL();
-    //     }
-    // } 
-
-    public void OnTriggerStop()
+    public void OnFocusStop()
     {
-        FadeOut();
+        Debug.Log("OnFocusStop");
+        // HighlightRenderer.material.color = new Color(1, 1, 1, 0);
+        HighlightRenderer.material.DOKill();
+        HighlightRenderer.material.DOFade(0f, 0.3f).OnComplete(() =>
+        {
+            HighlightRenderer.material.color = new Color(1, 1, 1, 0);
+            HighlightRenderer.gameObject.SetActive(false);
+            Debug.Log("OnFocusStop " + 0);
+        });
     }
 
     // API 
-
     public void FadeIn()
     {
         NXEvent.EmitEvent("DisableCameraRotation");
@@ -90,11 +93,11 @@ public class SolidM_UICtrl : MonoBehaviour
 
     public void FadeOut()
     {
-        // triggered = false;
         NXEvent.EmitEvent("EnableCameraRotation");
         NXEvent.EmitEvent("EnablePlayerMovement");
 
-        canvas.DOFade(0f, fadeTime).OnComplete(() => {
+        canvas.DOFade(0f, fadeTime).OnComplete(() =>
+        {
             canvas.gameObject.SetActive(false);
         });
 

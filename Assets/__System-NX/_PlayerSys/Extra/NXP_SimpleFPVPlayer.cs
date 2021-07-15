@@ -9,18 +9,18 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
 
     [Header("Basics")]
     public Transform MovingObj;
-    public Transform mainCam;
+    private Transform mainCam;
 
     [Header("DevSetting")]
     // public bool DevModeVR = false;
     // public float VRPlayerHeight = 0.7f;
     public bool horizontalMoveOnly;
 
-    
+
 
     [Header("ROT")]
     public bool allowRotation = false;
-	private Vector3 tempRot;
+    private Vector3 tempRot;
     public float smoothRotSpeed = 5f;
     public float cursorSensitivity = 0.025f;
 
@@ -34,32 +34,33 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
     Vector3 deltaDir;
 
 
-    [FoldoutGroup("Character Controller")]public bool UseCharacterController;
-    [FoldoutGroup("Character Controller")]public CharacterController characterController;
+    [FoldoutGroup("Character Controller")] public CharacterController characterController;
+    [FoldoutGroup("Character Controller")] public float Gravity;
 
-    
-    [FoldoutGroup("Fov")]public bool controlFOV;
-    [FoldoutGroup("Fov")]public float FovStep = 0.5f;
-    [FoldoutGroup("Fov")]public float FovLerp = 3f;
+
+    [FoldoutGroup("Camera")] public CinemachineVirtualCamera vcam;
+    [FoldoutGroup("Camera")] public bool controlFOV;
+    [FoldoutGroup("Camera")] public float FovStep = 0.5f;
+    [FoldoutGroup("Camera")] public float FovLerp = 3f;
     float tempFov;
 
     //Tilt
-    [FoldoutGroup("Tilt")]public bool allowTilt = true;
-    [FoldoutGroup("Tilt")]public float TiltStep = 5f;
-    [FoldoutGroup("Tilt")]public float TiltLerpSpeed = 1f;
+    [FoldoutGroup("Tilt")] public bool allowTilt = true;
+    [FoldoutGroup("Tilt")] public float TiltStep = 5f;
+    [FoldoutGroup("Tilt")] public float TiltLerpSpeed = 1f;
     float tempTilt = 0;
     Quaternion targetTilt = Quaternion.identity;
 
 
     private bool cursorToggleAllowed = true;
-    [FoldoutGroup("others")]public KeyCode cursorToggleButton = KeyCode.Escape;
-    [FoldoutGroup("others")]public KeyCode rotationToggleButton = KeyCode.Z;
+    [FoldoutGroup("others")] public KeyCode cursorToggleButton = KeyCode.Escape;
+    [FoldoutGroup("others")] public KeyCode rotationToggleButton = KeyCode.Z;
 
     private KeyCode forwardButton = KeyCode.W;
     private KeyCode backwardButton = KeyCode.S;
     private KeyCode rightButton = KeyCode.D;
     private KeyCode leftButton = KeyCode.A;
-    
+
     private float currentSpeed = 0f;
     private bool moving = false;
     private bool togglePressed = false;
@@ -67,11 +68,9 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
 
 
 
-    //Cinemachine Integration
-    private CinemachineVirtualCamera vcam;
 
     Vector3 lastDelta;
-    
+
 
 
     private void OnEnable()
@@ -88,25 +87,55 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
 
     private void Start()
     {
-        vcam = GetComponent<CinemachineVirtualCamera>();
-
-        if(!mainCam){
+        if (!mainCam)
+        {
             mainCam = Camera.main.transform;
         }
-        
-		tempRot = MovingObj.rotation.eulerAngles;
+
+        tempRot = MovingObj.rotation.eulerAngles;
         tempFov = vcam.m_Lens.FieldOfView;
 
+        // vcam setup
+        VCamSetup();
         // Start event listeners
         SetupEventListeners();
     }
 
-    private void Update()
+    void VCamSetup()
     {
         if(vcam)
+            CinemachineCore.GetInputAxis = VCamInput;
+    }
+    public float VCamInput(string m_axis)
+    {
+        if (allowRotation)
+        {
+
+            if (m_axis == "Mouse X")
+            {
+                return UnityEngine.Input.GetAxis("Mouse X");
+            }
+            else if (m_axis == "Mouse Y")
+            {
+                return UnityEngine.Input.GetAxis("Mouse Y");
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    private void Update()
+    {
+        if (vcam)
         {
             //Disable Control if vcam not live
-            if(!CinemachineCore.Instance.IsLive(vcam))
+            if (!CinemachineCore.Instance.IsLive(vcam))
                 return;
         }
 
@@ -117,7 +146,8 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
     }
 
 
-    void TiltCtrl(){
+    void TiltCtrl()
+    {
         // if(!allowTilt){
         //     return;
         // }
@@ -138,33 +168,36 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
         // mainCam.localRotation = Quaternion.Lerp(mainCam.localRotation, targetTilt, Time.deltaTime * TiltLerpSpeed);
     }
 
-    void FOVCtrl(){
-        if(!controlFOV || !vcam) return;
-        
+    void FOVCtrl()
+    {
+        if (!controlFOV || !vcam) return;
+
         tempFov -= Input.mouseScrollDelta.y * FovStep;
         // Debug.Log("tempFov "+tempFov);
         tempFov = Mathf.Clamp(tempFov, 10f, 120f);
         vcam.m_Lens.FieldOfView = Mathf.Lerp(vcam.m_Lens.FieldOfView, tempFov, Time.deltaTime * FovLerp);
     }
 
-    private void CalMove(){
+    private void CalMove()
+    {
         if (allowMovement)
         {
             MoveUpdate();
         }
 
         //ROTATION
-        if (allowRotation)
+        if (!vcam && allowRotation)
         {
             Vector3 eulerAngles = MovingObj.transform.eulerAngles;
-			tempRot.x += -Input.GetAxis("Mouse Y") * 359f * cursorSensitivity;
-			tempRot.y += Input.GetAxis("Mouse X") * 359f * cursorSensitivity;
-			MovingObj.transform.rotation = Quaternion.Lerp(MovingObj.transform.rotation, Quaternion.Euler(tempRot), Time.deltaTime* smoothRotSpeed);
+            tempRot.x += -Input.GetAxis("Mouse Y") * 359f * cursorSensitivity;
+            tempRot.y += Input.GetAxis("Mouse X") * 359f * cursorSensitivity;
+            MovingObj.transform.rotation = Quaternion.Lerp(MovingObj.transform.rotation, Quaternion.Euler(tempRot), Time.deltaTime * smoothRotSpeed);
         }
 
     }
 
-    void DevInput(){
+    void DevInput()
+    {
         //TOGGLE
         if (cursorToggleAllowed)
         {
@@ -174,9 +207,12 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
                 {
                     togglePressed = true;
                     Cursor.visible = !Cursor.visible;
-                    if(Cursor.visible){
+                    if (Cursor.visible)
+                    {
                         Cursor.lockState = CursorLockMode.None;
-                    }else{
+                    }
+                    else
+                    {
                         Cursor.lockState = CursorLockMode.Locked;
                     }
                 }
@@ -190,8 +226,9 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        #if UNITY_EDITOR
-        if (Input.GetKeyDown(rotationToggleButton)) {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(rotationToggleButton))
+        {
             allowRotation = !allowRotation;
             if (allowRotation)
             {
@@ -202,10 +239,11 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             }
         }
-        #endif
+#endif
     }
 
-    void MoveUpdate(){
+    void MoveUpdate()
+    {
         Vector3 deltaPosition = Vector3.zero;
         float SpeedIncrease = 0f;
         bool lastMoving = moving;
@@ -219,16 +257,16 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
         CheckMove(leftButton, ref deltaPosition, -mainCam.right);
 
         CheckMove(KeyCode.Q, ref deltaPosition, new Vector3(mainCam.forward.x, 0f, mainCam.forward.z));
-        CheckMove(KeyCode.E, ref deltaPosition, mainCam.up* 0.75f);
-        CheckMove(KeyCode.X, ref deltaPosition, mainCam.up* -0.5f);
+        CheckMove(KeyCode.E, ref deltaPosition, mainCam.up * 0.75f);
+        CheckMove(KeyCode.X, ref deltaPosition, mainCam.up * -0.5f);
 
         CheckMove(KeyCode.PageUp, ref deltaPosition, mainCam.forward);
         CheckMove(KeyCode.PageDown, ref deltaPosition, -mainCam.forward);
         CheckMove(KeyCode.RightArrow, ref deltaPosition, mainCam.right);
         CheckMove(KeyCode.LeftArrow, ref deltaPosition, -mainCam.right);
-        
+
         CheckMove(KeyCode.Mouse0, ref deltaPosition, mainCam.forward);
-        CheckMove(KeyCode.Mouse2, ref deltaPosition, mainCam.up* 0.75f);
+        CheckMove(KeyCode.Mouse2, ref deltaPosition, mainCam.up * 0.75f);
 
         // deltaDir += deltaPosition;
         // deltaDir.x = Mathf.Clamp(deltaDir.x, -2f, 2f);
@@ -238,13 +276,14 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
         // //smooth Stop
         // deltaDir = Vector3.Lerp(deltaDir, Vector3.zero, Time.deltaTime);
 
-        
+
         //speed input
-        if(Input.GetKey(KeyCode.LeftShift)){
-            SpeedIncrease = increaseSpeed;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed = increaseSpeed;
         }
-        if (moving)
-            currentSpeed += SpeedIncrease * Time.deltaTime;
+        // if (moving)
+        //     currentSpeed += SpeedIncrease * Time.deltaTime;
 
 
         // Set Position Old
@@ -254,31 +293,38 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
             if (moving != lastMoving)
                 currentSpeed = initialSpeed;
             lastDelta = deltaPosition;
-            
+
             // MovingObj.transform.position += deltaPosition * currentSpeed * Time.deltaTime;
             // Vector3 targetPos = MovingObj.transform.position + deltaDir*currentSpeed * Time.deltaTime;
 
             // Vector3 targetPos = MovingObj.transform.position + deltaPosition * currentSpeed * Time.deltaTime;
             // MovingObj.transform.position = Vector3.Lerp(MovingObj.transform.position, targetPos, smoothMoveSpeed* Time.deltaTime);            
         }
-        else if(currentSpeed > 0){
+        else if (currentSpeed > 0)
+        {
             //Stopping
-            currentSpeed -= Time.deltaTime * smoothStopSpeed;     
+            currentSpeed -= Time.deltaTime * smoothStopSpeed;
             // MovingObj.transform.position += lastDelta * currentSpeed * Time.deltaTime;
             deltaPosition = lastDelta;
-        }else{
+        }
+        else
+        {
             currentSpeed = 0f;
             lastDelta = deltaDir;
         }
 
 
-        if(UseCharacterController && characterController){
+        if (characterController)
+        {
             characterController.Move(deltaPosition * currentSpeed * Time.deltaTime);
+
+            Vector3 velocity = -Gravity * Vector3.up * Time.deltaTime;
+            characterController.Move(velocity);
             return;
         }
 
         Vector3 targetPos = MovingObj.transform.position + deltaPosition * currentSpeed * Time.deltaTime;
-        MovingObj.transform.position = Vector3.Lerp(MovingObj.transform.position, targetPos, smoothMoveSpeed* Time.deltaTime);
+        MovingObj.transform.position = Vector3.Lerp(MovingObj.transform.position, targetPos, smoothMoveSpeed * Time.deltaTime);
     }
 
 
@@ -296,27 +342,34 @@ public class NXP_SimpleFPVPlayer : MonoBehaviour
         }
     }
 
-    public void ResetRot(Vector3 targetEuler, bool doLerp){
-        if(!doLerp){
+    public void ResetRot(Vector3 targetEuler, bool doLerp)
+    {
+        if (!doLerp)
+        {
         }
-            transform.rotation = Quaternion.Euler(targetEuler);
+        transform.rotation = Quaternion.Euler(targetEuler);
         tempRot = targetEuler;
     }
 
 
     // NXEvent
-    void SetupEventListeners(){
-        NXEvent.StartListening("EnableCameraRotation", () => {
+    void SetupEventListeners()
+    {
+        NXEvent.StartListening("EnableCameraRotation", () =>
+        {
             allowRotation = true;
         });
-        NXEvent.StartListening("DisableCameraRotation", () => {
+        NXEvent.StartListening("DisableCameraRotation", () =>
+        {
             allowRotation = false;
         });
-        NXEvent.StartListening("EnablePlayerMovement", () => {
+        NXEvent.StartListening("EnablePlayerMovement", () =>
+        {
             allowMovement = true;
         });
-        NXEvent.StartListening("DisablePlayerMovement", () => {
+        NXEvent.StartListening("DisablePlayerMovement", () =>
+        {
             allowMovement = false;
         });
-    }    
+    }
 }

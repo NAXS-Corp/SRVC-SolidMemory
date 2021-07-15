@@ -37,7 +37,7 @@ public class UI_ZoomAndDrag : MonoBehaviour, IDragHandler, IScrollHandler, IPoin
     private void OnEnable() {
         // Reset zoom on enabled
         zoomCtrl = 0f;
-        TargetElement.localPosition = Vector3.zero;
+        TargetElement.anchoredPosition = Vector3.zero;
     }
 
     private void Update()

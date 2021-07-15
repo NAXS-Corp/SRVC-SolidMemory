@@ -6,7 +6,11 @@ public class SolidM_Gaze : MonoBehaviour
 {
     public LayerMask TargetMask;
     public float RayDistance = 10;
+    private SolidM_UICtrl currentFocus;
     private SolidM_UICtrl lastFocused;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,24 +21,30 @@ public class SolidM_Gaze : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        Debug.DrawLine(transform.position, transform.position + transform.forward * RayDistance, Color.green);
         if (Physics.Raycast(transform.position, transform.forward, out hit, RayDistance, TargetMask, QueryTriggerInteraction.Collide))
         {
-            SolidM_UICtrl currentFocus;
-            Debug.Log("SolidM_Gaze gazing " + hit.transform.gameObject.name);
-            Debug.Log("SolidM_Gaze gazing2 " + hit.collider.gameObject.name);
-            if (currentFocus = hit.transform.GetComponent<SolidM_UICtrl>())
-            {
-                Debug.Log("SolidM_Gaze OnTriggered");
-                currentFocus.OnFocused();
-                if (lastFocused && lastFocused != currentFocus)
-                {
-                    lastFocused.OnTriggerStop();
-                }
-                lastFocused = currentFocus;
-            }
+            currentFocus = hit.transform.GetComponent<SolidM_UICtrl>();
+            Debug.DrawLine(transform.position, transform.position + transform.forward * RayDistance, Color.green);
+        }
+        else
+        {
+            currentFocus = null;
+            Debug.DrawLine(transform.position, transform.position + transform.forward * RayDistance, Color.red);
         }
 
 
+        if (currentFocus)
+        {
+            Debug.Log("SolidM_Gaze 1");
+            currentFocus.OnFocused();
+        }
+
+        if (!currentFocus && lastFocused)
+        {
+            lastFocused.OnFocusStop();
+        }
+
+        lastFocused = currentFocus;
     }
+
 }
