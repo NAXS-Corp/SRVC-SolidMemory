@@ -3,12 +3,7 @@ guid: 70e7af9c7112e9940b33673024f4cfa5
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Ornaments
-    second: {fileID: 2100000, guid: 0c867f2f91b3f304c8c7ed5181a2d43c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

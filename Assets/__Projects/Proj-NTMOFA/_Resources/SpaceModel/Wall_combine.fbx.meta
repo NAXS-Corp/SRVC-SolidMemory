@@ -3,42 +3,7 @@ guid: c68ed88fa8aa84c4892a2bdc41918b15
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Wall_C
-    second: {fileID: 2100000, guid: 783d8dcfa5eb72448bd2cdf133f8c4a4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Wall_D
-    second: {fileID: 2100000, guid: bbfe8869a4f02e54e8fc25bc79ab555c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Wall_D_out
-    second: {fileID: 2100000, guid: c37efdd36e918814389c0696be5865ac, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Wall_E
-    second: {fileID: 2100000, guid: f8387b6f1a3c2d041bcea6ae1f393c35, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_wall_B
-    second: {fileID: 2100000, guid: eb50a8ada3869a4488a6ade0128f74da, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wall_front
-    second: {fileID: 2100000, guid: 0aed390d4633d484bb23e286bdb22614, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wall_yellow
-    second: {fileID: 2100000, guid: 87af32f2f6b6ec64994cfa3e86bd0ce7, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

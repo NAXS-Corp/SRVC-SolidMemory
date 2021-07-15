@@ -3,32 +3,7 @@ guid: ae05be3356b72bd41ad0235afadef9bf
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Chrome
-    second: {fileID: 2100000, guid: dc825fe29d9b19c4ba4c37e54068bc7f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_ceiling
-    second: {fileID: 2100000, guid: 85576fb270884cf439eae03523b8b5b7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: White_plastic
-    second: {fileID: 2100000, guid: e2fad32035d801f4da8a20309df3260c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: emissive
-    second: {fileID: 2100000, guid: 25fbea599d970fa42baa157034b21dee, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: metal
-    second: {fileID: 2100000, guid: 5764a2bd06010864f9b4a2c26f7bd7e2, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,12 +3,7 @@ guid: eadae918d30bf2845b0f4932fdf0f255
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: beams_mat
-    second: {fileID: 2100000, guid: 5d29594a57a5e294db7006e36b8ce825, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

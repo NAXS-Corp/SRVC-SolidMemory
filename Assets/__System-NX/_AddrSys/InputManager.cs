@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/__Systems-TaiwanNow/__System-NX/_AddrSys/InputManager.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/__System-NX/_AddrSys/InputManager.inputactions'
 
 using System;
 using System.Collections;

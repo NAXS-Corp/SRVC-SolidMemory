@@ -21,13 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wall_front
-  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
-  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT _NORMALMAP _NORMALMAP_TANGENT_SPACE
+  m_Shader: {fileID: -6465566751694194690, guid: 2a2f195dfdd8c994693889fca9809d3a, type: 3}
+  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2225
-  stringTagMap: {}
+  stringTagMap:
+    MotionVector: User
   disabledShaderPasses:
   - DistortionVectors
   - MOTIONVECTORS
@@ -98,6 +99,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_448a6dd47b77449bba3b73dde1bdf8d4_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 6f7e566b75330a845ae479f8f8af9dd7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_54c88bdc309e45b989465335e9139ab6_Texture_1:
+        m_Texture: {fileID: 2800000, guid: c3d4fe6a4d79fc3448724c7f340ae0e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_9322844191af47a9b12e689f3021b2bb_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 38b6c1803810d6e47bdf81347cb6c5ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_cc37d9af4b814ee0b9afaa3471b00afb_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 592bbbd53c6a2914cbf53ed64a41d60c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -135,6 +152,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_432ac8a6009a4483ac57d13d733daad9: 0.8
+    - Vector1_482446db78a644b49ccf8d67c7ff32d7: -11.65
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -227,6 +246,8 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
